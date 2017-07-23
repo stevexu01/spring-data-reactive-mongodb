@@ -39,9 +39,9 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String args[]) {
 //    insertData();
-    printData();
+        printData();
 
-//        withPerson();
+//    withPerson();
     }
 
     private void printData() {
@@ -51,63 +51,10 @@ public class Application implements CommandLineRunner {
 
         //pdrs.map(PDRAddSubscription::getPdrFeatureSeq).toIterable().forEach(System.out::println); //39144 ms
 
-        pdrs.stream().map(PDRAddSubscription::getPdrFeatureSeq).forEach(System.out::println);   //37906 ms
+        System.out.println("Records: " + pdrs.stream().map(PDRAddSubscription::getPdrFeatureSeq).count());   //1000000
 
-        System.out.println("Seconds: " + (System.currentTimeMillis() - started));
+        System.out.println("Seconds: " + (System.currentTimeMillis() - started));   //30714
     }
-
-    /*private void printDataReactive() {
-        long started = System.currentTimeMillis();
-        System.out.println(" -------------- add ------------- ");
-//    System.out.println(pdrAddSubscriptionRepository
-////            .findByPdrActionTypeLike("AddSubs") //31293 ms
-//            .findByPdrActionType("AddSubscription") //29506 ms
-//            .count().block());
-
-        Flux<PDRAddSubscription> pdrs = pdrAddSubscriptionRepository
-                .findByPdrActionTypeLike("AddSubs");
-
-        //pdrs.map(PDRAddSubscription::getPdrFeatureSeq).toIterable().forEach(System.out::println); //39144 ms
-
-        System.out.println("Records: " + pdrs.count().block()); //30696 ms
-
-
-//    System.out.println(" -------------- modify ------------- ");
-//    pdrAddSubscriptionRepository.findByPdrActionTypeLike("ModifySubscription")
-//            .log()
-//            .map(PDRAddSubscription::getPdrFeatureSeq)
-//            .subscribe(System.out::println);
-//
-//    System.out.println(" -------------- delete ------------- ");
-//    pdrAddSubscriptionRepository.findByPdrActionTypeLike("DeleteSubscription")
-//            .log()
-//            .map(PDRAddSubscription::getPdrFeatureSeq)
-//            .subscribe(System.out::println);
-
-        System.out.println("Seconds: " + (System.currentTimeMillis() - started));
-    }*/
-
-    /*private void insertDataReactive() {
-        Iterable iterable = new Iterable() {
-            List<Person> persons = new ArrayList<>();
-            List<PDRAddSubscription> pdrAddSubscriptions = new ArrayList<>();
-
-            //      @Override
-            public Iterator iterator() {
-                for (int i = 0; i < MAX_RECORDS; i++) {
-                    PDRAddSubscription pdrRecord = getPdrAddSubscription();
-                    pdrRecord.setPdrBAN(pdrRecord.getPdrBAN() + i);
-                    pdrRecord.setPdrSocID(pdrRecord.getPdrSocID() + i);
-                    pdrAddSubscriptions.add(pdrRecord);
-
-                }
-                return pdrAddSubscriptions.iterator();
-            }
-        };
-
-        pdrAddSubscriptionRepository.saveAll(Flux.fromIterable(iterable)).subscribe();
-    }*/
-
 
     public static PDRAddSubscription getPdrAddSubscription() {
         try {

@@ -12,7 +12,6 @@ import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 
 @Configuration
-/*@EnableReactiveMongoRepositories(basePackageClasses = {PDRAddSubscriptionRepository.class, PersonRepository.class})*/
 @EnableMongoRepositories(basePackageClasses = {PDRAddSubscriptionRepository.class, PersonRepository.class})
 public class MongoConfig extends AbstractReactiveMongoConfiguration {
 
