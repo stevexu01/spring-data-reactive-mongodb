@@ -2,7 +2,6 @@ package start.mongo.reactivestream;
 
 import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoClients;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import start.mongo.reactivestream.repositories.PDRAddSubscriptionRepository;
 import start.mongo.reactivestream.repositories.PersonRepository;
 import org.springframework.context.annotation.Bean;
@@ -12,8 +11,7 @@ import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 
 @Configuration
-/*@EnableReactiveMongoRepositories(basePackageClasses = {PDRAddSubscriptionRepository.class, PersonRepository.class})*/
-@EnableMongoRepositories(basePackageClasses = {PDRAddSubscriptionRepository.class, PersonRepository.class})
+@EnableReactiveMongoRepositories(basePackageClasses = {PDRAddSubscriptionRepository.class, PersonRepository.class})
 public class MongoConfig extends AbstractReactiveMongoConfiguration {
 
   @Bean

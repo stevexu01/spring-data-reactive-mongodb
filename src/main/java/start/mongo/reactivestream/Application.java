@@ -39,24 +39,13 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String args[]) {
 //    insertData();
+
     printData();
 
 //        withPerson();
     }
 
     private void printData() {
-        long started = System.currentTimeMillis();
-        List<PDRAddSubscription> pdrs = pdrAddSubscriptionRepository
-                .findByPdrActionTypeLike("AddSubs");
-
-        //pdrs.map(PDRAddSubscription::getPdrFeatureSeq).toIterable().forEach(System.out::println); //39144 ms
-
-        pdrs.stream().map(PDRAddSubscription::getPdrFeatureSeq).forEach(System.out::println);   //37906 ms
-
-        System.out.println("Seconds: " + (System.currentTimeMillis() - started));
-    }
-
-    /*private void printDataReactive() {
         long started = System.currentTimeMillis();
         System.out.println(" -------------- add ------------- ");
 //    System.out.println(pdrAddSubscriptionRepository
@@ -69,7 +58,7 @@ public class Application implements CommandLineRunner {
 
         //pdrs.map(PDRAddSubscription::getPdrFeatureSeq).toIterable().forEach(System.out::println); //39144 ms
 
-        System.out.println("Records: " + pdrs.count().block()); //30696 ms
+        System.out.println("Records: " + pdrs.count().block()); //1000000, in 25882 ms
 
 
 //    System.out.println(" -------------- modify ------------- ");
@@ -85,9 +74,9 @@ public class Application implements CommandLineRunner {
 //            .subscribe(System.out::println);
 
         System.out.println("Seconds: " + (System.currentTimeMillis() - started));
-    }*/
+    }
 
-    /*private void insertDataReactive() {
+    private void insertData() {
         Iterable iterable = new Iterable() {
             List<Person> persons = new ArrayList<>();
             List<PDRAddSubscription> pdrAddSubscriptions = new ArrayList<>();
@@ -106,7 +95,7 @@ public class Application implements CommandLineRunner {
         };
 
         pdrAddSubscriptionRepository.saveAll(Flux.fromIterable(iterable)).subscribe();
-    }*/
+    }
 
 
     public static PDRAddSubscription getPdrAddSubscription() {
