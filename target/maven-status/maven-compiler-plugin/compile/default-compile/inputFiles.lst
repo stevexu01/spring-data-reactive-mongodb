@@ -1,0 +1,4 @@
+C:\_dev\samples\Mongo\spring-data-reactive-mongodb-master\src\main\java\lankydan\tutorial\reactivestreams\MongoConfig.java
+C:\_dev\samples\Mongo\spring-data-reactive-mongodb-master\src\main\java\lankydan\tutorial\reactivestreams\Application.java
+C:\_dev\samples\Mongo\spring-data-reactive-mongodb-master\src\main\java\lankydan\tutorial\reactivestreams\repositories\PersonRepository.java
+C:\_dev\samples\Mongo\spring-data-reactive-mongodb-master\src\main\java\lankydan\tutorial\reactivestreams\documents\Person.java

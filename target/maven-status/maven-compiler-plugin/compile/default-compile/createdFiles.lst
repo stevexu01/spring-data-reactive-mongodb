@@ -1,0 +1,4 @@
+lankydan\tutorial\reactivestreams\Application.class
+lankydan\tutorial\reactivestreams\repositories\PersonRepository.class
+lankydan\tutorial\reactivestreams\MongoConfig.class
+lankydan\tutorial\reactivestreams\documents\Person.class

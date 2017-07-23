@@ -1,0 +1,151 @@
+insert:
+======
+> mongo
+group1 - pdrActionType: AddSubscription
+for(var i=0; i<1000000; i++){db.pdr.insert({  "pdrIsActive": null,  "pdrIMEI": null,  "pdrFeatureSeq": 10 + i,  "pdrAccountId": "21166098",  "pdrEndDate": "20170517",  "pdrSubscriberId": "89230629",  "pdrSubscriberType": "SubscriberSubscription",  "pdrProvAction": "AddSubscription",  "pdrStartDate": "20150226",  "pdrDateTime": "20170518134319",  "pdrPaymentInd": "POSTPAID",  "pdrActivationDateTime": "20170518134319",  "xCorrelationId": "a3d5b2489ec53943862ab93b62535485baba0d6f",  "pdrFeatureCode": "NOUTUC",  "pdrTransactionId": "trId2017-05-18T-01:41:38:213Z",  "pdrSubscriptionId": "10160272",  "pdrMSISDN": "14166971702",  "pdrNAG": null,  "pdrSocId": "DATBLTEST",  "pdrBAN": "502104071",  "pdrExpirationDateTime": null,  "pdrProvStatus": "SUCCESS",  "pdrActionType": "AddSubscription",  "pdrSiteId": "1",  "pdrComponentId": "ProvSOAPServer_PHAR05_PROV01",  "pdrESN": null,  "pdrMEID": null,  "pdrDomainId": "3",  "pdrIMSI": "4166971702"})}
+
+group2 - pdrActionType: ModifySubscription
+for(var i=0; i<1000000; i++){db.pdr.insert({  "pdrIsActive": null,  "pdrIMEI": null,  "pdrFeatureSeq": 100 + i,  "pdrAccountId": "21166098",  "pdrEndDate": "20170517",  "pdrSubscriberId": "89230629",  "pdrSubscriberType": "SubscriberSubscription",  "pdrProvAction": "ModifySubscription",  "pdrStartDate": "20150226",  "pdrDateTime": "20170518134319",  "pdrPaymentInd": "POSTPAID",  "pdrActivationDateTime": "20170518134319",  "xCorrelationId": "a3d5b2489ec53943862ab93b62535485baba0d6f",  "pdrFeatureCode": "NOUTUC",  "pdrTransactionId": "trId2017-05-18T-01:41:38:213Z",  "pdrSubscriptionId": "10160272",  "pdrMSISDN": "14166971702",  "pdrNAG": null,  "pdrSocId": "DATBLTEST",  "pdrBAN": "502104071",  "pdrExpirationDateTime": null,  "pdrProvStatus": "SUCCESS",  "pdrActionType": "ModifySubscription",  "pdrSiteId": "1",  "pdrComponentId": "ProvSOAPServer_PHAR05_PROV01",  "pdrESN": null,  "pdrMEID": null,  "pdrDomainId": "3",  "pdrIMSI": "4166971702"})}
+
+group2 - pdrActionType: DeleteSubscription
+for(var i=0; i<1000000; i++){db.pdr.insert({  "pdrIsActive": null,  "pdrIMEI": null,  "pdrFeatureSeq": 1000 + i,  "pdrAccountId": "21166098",  "pdrEndDate": "20170517",  "pdrSubscriberId": "89230629",  "pdrSubscriberType": "SubscriberSubscription",  "pdrProvAction": "DeleteSubscription",  "pdrStartDate": "20150226",  "pdrDateTime": "20170518134319",  "pdrPaymentInd": "POSTPAID",  "pdrActivationDateTime": "20170518134319",  "xCorrelationId": "a3d5b2489ec53943862ab93b62535485baba0d6f",  "pdrFeatureCode": "NOUTUC",  "pdrTransactionId": "trId2017-05-18T-01:41:38:213Z",  "pdrSubscriptionId": "10160272",  "pdrMSISDN": "14166971702",  "pdrNAG": null,  "pdrSocId": "DATBLTEST",  "pdrBAN": "502104071",  "pdrExpirationDateTime": null,  "pdrProvStatus": "SUCCESS",  "pdrActionType": "DeleteSubscription",  "pdrSiteId": "1",  "pdrComponentId": "ProvSOAPServer_PHAR05_PROV01",  "pdrESN": null,  "pdrMEID": null,  "pdrDomainId": "3",  "pdrIMSI": "4166971702"})}
+
+
+find:
+====
+> db.test.find().count()
+113
+> db.getCollection('pDRAddSubscription').find({"pdrActionType":/Add/,"pdrSubscriberType":/NONTEXSITED/}).count()
+0
+> db.getCollection('pDRAddSubscription').find({"pdrActionType":/Add/}).count()
+1000010
+
+> db.getCollection('pDRAddSubscription').find({"pdrActionType":/Add/}).count()
+1000010
+
+> db.pDRAddSubscription.find({"pdrActionType":/Add/}).count()
+1000010
+
+> db.pDRAddSubscription.find({pdrActionType:/Add/}).count()
+1000010
+
+> db.pDRAddSubscription.find().count()
+1000010
+
+> db.person.find({'firstName':/john/}).count()
+12004004
+> db.person.find({'firstName':{$regex:/john/}}).count()
+12004004
+
+> db.person.find({'firstName':/john/})[0]
+{
+        "_id" : ObjectId("5970341a532aae3804675651"),
+        "firstName" : "john",
+        "secondName" : "boe",
+        "dateOfBirth" : ISODate("2017-07-20T04:39:53.972Z"),
+        "profession" : "a bit of a loser",
+        "salary" : 10,
+        "_class" : "lankydan.tutorial.reactivestreams.documents.Person"
+}
+
+-------------------------------
+> db.pDRAddSubscription.stats()
+{
+        "ns" : "test.pDRAddSubscription",
+        "size" : 817785810,
+        "count" : 1000010,
+        "avgObjSize" : 817,
+        "storageSize" : 121163776,
+
+-----------------------------------
+        db.inventory.insertMany([
+           { item: "journal", qty: 25, size: { h: 14, w: 21, uom: "cm" }, status: "A" },
+           { item: "notebook", qty: 50, size: { h: 8.5, w: 11, uom: "in" }, status: "A" },
+           { item: "paper", qty: 100, size: { h: 8.5, w: 11, uom: "in" }, status: "D" },
+           { item: "planner", qty: 75, size: { h: 22.85, w: 30, uom: "cm" }, status: "D" },
+           { item: "postcard", qty: 45, size: { h: 10, w: 15.25, uom: "cm" }, status: "A" }
+        ]);
+
+------------- function: $gt -------------
+......
+{ "_id" : "DATBLTEST1", "pdrFeatureCode" : "NOUTUC", "pdrEndDate" : "20170517", "pdrSubscriptionID" : "10160272", "pdrProvAction" : "AddSubscription", "pdrStartDate" : "20150226", "pdrFeatureSeq" : "3912584899", "pdrProvStatus" : "SUCCESS", "pdrPaymentInd" : "POSTPAID", "pdrTransactionID" : "trId2017-05-18T-01:41:38:213Z", "pdrComponentID" : "ProvSOAPServer_PHAR05_PROV01", "pdrDateTime" : "20170518134319", "pdrActionType" : "AddSubscription", "pdrAccountID" : "21166098", "pdrSubscriberType" : "SubscriberSubscription", "pdrBAN" : "5021040711", "pdrMSISDN" : "14166971702", "pdrIMSI" : "4166971702", "pdrActivationDateTime" : "20170518134319", "pdrSiteID" : "1", "pdrDomainID" : "3", "pdrSubscriberID" : "89230629", "xCorrelationID" : "a3d5b2489ec53943862ab93b62535485baba0d6f", "_class" : "start.mongo.reactivestream.documents.PDRAddSubscription" }
+{ "_id" : "DATBLTEST2", "pdrFeatureCode" : "NOUTUC", "pdrEndDate" : "20170517", "pdrSubscriptionID" : "10160272", "pdrProvAction" : "AddSubscription", "pdrStartDate" : "20150226", "pdrFeatureSeq" : "3912584899", "pdrProvStatus" : "SUCCESS", "pdrPaymentInd" : "POSTPAID", "pdrTransactionID" : "trId2017-05-18T-01:41:38:213Z", "pdrComponentID" : "ProvSOAPServer_PHAR05_PROV01", "pdrDateTime" : "20170518134319", "pdrActionType" : "AddSubscription", "pdrAccountID" : "21166098", "pdrSubscriberType" : "SubscriberSubscription", "pdrBAN" : "5021040712", "pdrMSISDN" : "14166971702", "pdrIMSI" : "4166971702", "pdrActivationDateTime" : "20170518134319", "pdrSiteID" : "1", "pdrDomainID" : "3", "pdrSubscriberID" : "89230629", "xCorrelationID" : "a3d5b2489ec53943862ab93b62535485baba0d6f", "_class" : "start.mongo.reactivestream.documents.PDRAddSubscription" }
+Type "it" for more
+> db.pDRAddSubscription.find({pdrActionType:/Add/,_id:{$gt:'DATBLTEST2'}}).count()
+888897
+
+> db.pDRAddSubscription.find({pdrActionType:/Add/,_id:{$gt:'DATBLTEST100000'}}).count()
+1000003
+
+------------- function: $group -------------
+https://docs.mongodb.com/manual/reference/operator/aggregation/group/#examples
+
+db.sales.insert({ "_id" : 1, "item" : "abc", "price" : 10, "quantity" : 2, "date" : ISODate("2014-03-01T08:00:00Z") })
+db.sales.insert({ "_id" : 2, "item" : "jkl", "price" : 20, "quantity" : 1, "date" : ISODate("2014-03-01T09:00:00Z") })
+db.sales.insert({ "_id" : 3, "item" : "xyz", "price" : 5, "quantity" : 10, "date" : ISODate("2014-03-15T09:00:00Z") })
+db.sales.insert({ "_id" : 4, "item" : "xyz", "price" : 5, "quantity" : 20, "date" : ISODate("2014-04-04T11:21:39.736Z") })
+db.sales.insert({ "_id" : 5, "item" : "abc", "price" : 10, "quantity" : 10, "date" : ISODate("2014-04-04T21:23:13.331Z") })
+
+db.sales.aggregate(
+   [
+      {
+        $group : {
+           _id : { month: { $month: "$date" }, day: { $dayOfMonth: "$date" }, year: { $year: "$date" } },
+           totalPrice: { $sum: { $multiply: [ "$price", "$quantity" ] } },
+           averageQuantity: { $avg: "$quantity" },
+           count: { $sum: 1 }
+        }
+      }
+   ]
+)
+
+{ "_id" : { "month" : 4, "day" : 4, "year" : 2014 }, "totalPrice" : 200, "averageQuantity" : 15, "count" : 2 }
+{ "_id" : { "month" : 3, "day" : 15, "year" : 2014 }, "totalPrice" : 50, "averageQuantity" : 10, "count" : 1 }
+{ "_id" : { "month" : 3, "day" : 1, "year" : 2014 }, "totalPrice" : 40, "averageQuantity" : 1.5, "count" : 2 }
+
+-----
+db.sales.aggregate(
+   [
+      {
+        $group : {
+           _id : null,
+           totalPrice: { $sum: { $multiply: [ "$price", "$quantity" ] } },
+           averageQuantity: { $avg: "$quantity" },
+           count: { $sum: 1 }
+        }
+      }
+   ]
+)
+
+---- Group title by author ----
+{ "_id" : 8751, "title" : "The Banquet", "author" : "Dante", "copies" : 2 }
+{ "_id" : 8752, "title" : "Divine Comedy", "author" : "Dante", "copies" : 1 }
+{ "_id" : 8645, "title" : "Eclogues", "author" : "Dante", "copies" : 2 }
+{ "_id" : 7000, "title" : "The Odyssey", "author" : "Homer", "copies" : 10 }
+{ "_id" : 7020, "title" : "Iliad", "author" : "Homer", "copies" : 10 }
+
+
+The following aggregation operation pivots the data in the books collection to have titles grouped by authors.
+
+db.books.aggregate(
+   [
+     { $group : { _id : "$author", books: { $push: "$title" } } }
+   ]
+)
+The operation returns the following documents:
+
+{ "_id" : "Homer", "books" : [ "The Odyssey", "Iliad" ] }
+{ "_id" : "Dante", "books" : [ "The Banquet", "Divine Comedy", "Eclogues" ] }
+
+---- Group Documents by author ----
+db.books.aggregate(
+   [
+     { $group : { _id : "$author", books: { $push: "$$ROOT" } } }
+   ]
+)
+
+-------------- String aggregation ---------
+https://docs.mongodb.com/manual/reference/operator/aggregation/split/#exp._S_split
+
+
+
