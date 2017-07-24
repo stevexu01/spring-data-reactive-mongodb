@@ -144,8 +144,24 @@ db.books.aggregate(
    ]
 )
 
--------------- String aggregation ---------
+-------------- aggregation ---------
 https://docs.mongodb.com/manual/reference/operator/aggregation/split/#exp._S_split
+
+examples -
+db.pdr1.aggregate(
+   [
+      {
+        $group : {
+           _id : { actionType:  "$pdrActionType" },
+           seqs: { $sum: "$pdrFeatureSeq" },
+           count: { $sum: 1 }
+        }
+      }
+   ]
+)
+
+-------- project --------
+db.pdr1.aggregate( [ { $project : { pdrActionType : 1 , pdrFeatureSeq : 1 } } ] )
 
 
 
