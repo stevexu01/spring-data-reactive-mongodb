@@ -40,40 +40,23 @@ public class Application implements CommandLineRunner {
     public void run(String args[]) {
 //    insertData();
 
-    printData();
+        printData();
 
-//        withPerson();
+//    withPerson();
     }
 
     private void printData() {
         long started = System.currentTimeMillis();
         System.out.println(" -------------- add ------------- ");
-//    System.out.println(pdrAddSubscriptionRepository
-////            .findByPdrActionTypeLike("AddSubs") //31293 ms
-//            .findByPdrActionType("AddSubscription") //29506 ms
-//            .count().block());
 
         Flux<PDRAddSubscription> pdrs = pdrAddSubscriptionRepository
                 .findByPdrActionTypeLike("AddSubs");
 
         //pdrs.map(PDRAddSubscription::getPdrFeatureSeq).toIterable().forEach(System.out::println); //39144 ms
 
-        System.out.println("Records: " + pdrs.count().block()); //1000000, in 25882 ms
+        System.out.println("Records: " + pdrs.count().block()); //1000000
 
-
-//    System.out.println(" -------------- modify ------------- ");
-//    pdrAddSubscriptionRepository.findByPdrActionTypeLike("ModifySubscription")
-//            .log()
-//            .map(PDRAddSubscription::getPdrFeatureSeq)
-//            .subscribe(System.out::println);
-//
-//    System.out.println(" -------------- delete ------------- ");
-//    pdrAddSubscriptionRepository.findByPdrActionTypeLike("DeleteSubscription")
-//            .log()
-//            .map(PDRAddSubscription::getPdrFeatureSeq)
-//            .subscribe(System.out::println);
-
-        System.out.println("Seconds: " + (System.currentTimeMillis() - started));
+        System.out.println("Seconds: " + (System.currentTimeMillis() - started));   //25882 ms
     }
 
     private void insertData() {
