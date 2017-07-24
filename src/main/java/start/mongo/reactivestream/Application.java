@@ -39,23 +39,81 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String args[]) {
 //    insertData();
+<<<<<<< HEAD
         printData();
+=======
+
+    printData();
+>>>>>>> 4f0f002d5fa460a1416569860c7e618e03dd67e4
 
 //    withPerson();
     }
 
     private void printData() {
         long started = System.currentTimeMillis();
+<<<<<<< HEAD
         List<PDRAddSubscription> pdrs = pdrAddSubscriptionRepository
+=======
+        System.out.println(" -------------- add ------------- ");
+//    System.out.println(pdrAddSubscriptionRepository
+////            .findByPdrActionTypeLike("AddSubs") //31293 ms
+//            .findByPdrActionType("AddSubscription") //29506 ms
+//            .count().block());
+
+        Flux<PDRAddSubscription> pdrs = pdrAddSubscriptionRepository
+>>>>>>> 4f0f002d5fa460a1416569860c7e618e03dd67e4
                 .findByPdrActionTypeLike("AddSubs");
 
         //pdrs.map(PDRAddSubscription::getPdrFeatureSeq).toIterable().forEach(System.out::println); //39144 ms
 
+<<<<<<< HEAD
         System.out.println("Records: " + pdrs.stream().map(PDRAddSubscription::getPdrFeatureSeq).count());   //1000000
 
         System.out.println("Seconds: " + (System.currentTimeMillis() - started));   //30714
     }
 
+=======
+        System.out.println("Records: " + pdrs.count().block()); //1000000, in 25882 ms
+
+
+//    System.out.println(" -------------- modify ------------- ");
+//    pdrAddSubscriptionRepository.findByPdrActionTypeLike("ModifySubscription")
+//            .log()
+//            .map(PDRAddSubscription::getPdrFeatureSeq)
+//            .subscribe(System.out::println);
+//
+//    System.out.println(" -------------- delete ------------- ");
+//    pdrAddSubscriptionRepository.findByPdrActionTypeLike("DeleteSubscription")
+//            .log()
+//            .map(PDRAddSubscription::getPdrFeatureSeq)
+//            .subscribe(System.out::println);
+
+        System.out.println("Seconds: " + (System.currentTimeMillis() - started));
+    }
+
+    private void insertData() {
+        Iterable iterable = new Iterable() {
+            List<Person> persons = new ArrayList<>();
+            List<PDRAddSubscription> pdrAddSubscriptions = new ArrayList<>();
+
+            //      @Override
+            public Iterator iterator() {
+                for (int i = 0; i < MAX_RECORDS; i++) {
+                    PDRAddSubscription pdrRecord = getPdrAddSubscription();
+                    pdrRecord.setPdrBAN(pdrRecord.getPdrBAN() + i);
+                    pdrRecord.setPdrSocID(pdrRecord.getPdrSocID() + i);
+                    pdrAddSubscriptions.add(pdrRecord);
+
+                }
+                return pdrAddSubscriptions.iterator();
+            }
+        };
+
+        pdrAddSubscriptionRepository.saveAll(Flux.fromIterable(iterable)).subscribe();
+    }
+
+
+>>>>>>> 4f0f002d5fa460a1416569860c7e618e03dd67e4
     public static PDRAddSubscription getPdrAddSubscription() {
         try {
             return new ObjectMapper().readValue(Files.lines(Paths.get("./pdrAddSubscription.json")).collect(Collectors.joining("\n")), PDRAddSubscription.class);
