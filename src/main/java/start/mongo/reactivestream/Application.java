@@ -5,6 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import start.mongo.reactivestream.documents.PDRAddSubscription;
@@ -30,6 +34,12 @@ public class Application implements CommandLineRunner {
     private PersonRepository personRepository;
 
     @Autowired
+    private MongoTemplate mongoTemplate;
+
+    @Autowired
+    private ReactiveMongoTemplate reactiveMongoTemplate;
+
+    @Autowired
     private PDRAddSubscriptionRepository pdrAddSubscriptionRepository;
 
     public static void main(String args[]) {
@@ -46,14 +56,26 @@ public class Application implements CommandLineRunner {
 
     private void printData() {
         long started = System.currentTimeMillis();
+
+        /* ReactiveMongoTemplate - requires  */
+//        Query query = new Query();
+//        query.addCriteria(Criteria.where("pdrActionType").regex("Add.*"));
+//        List<PDRAddSubscription> subscriptions = reactiveMongoTemplate.find(query, PDRAddSubscription.class, "pdr1");
+//        System.out.println("Records: " + subscriptions.size()); //1000000
+
+        /* MongoTemplate */
+//        Query query = new Query();
+//        query.addCriteria(Criteria.where("pdrActionType").regex("Add.*"));
+//        List<PDRAddSubscription> subscriptions = mongoTemplate.find(query, PDRAddSubscription.class, "pdr1");
+//        System.out.println("Records: " + subscriptions.size()); //1000000
+//        System.out.println("Seconds: " + (System.currentTimeMillis() - started));   //36201
+
+        /* MongoRepository */
         List<PDRAddSubscription> pdrs = pdrAddSubscriptionRepository
                 .findByPdrActionTypeLike("AddSubs");
-
         //pdrs.map(PDRAddSubscription::getPdrFeatureSeq).toIterable().forEach(System.out::println); //39144 ms
-
         System.out.println("Records: " + pdrs.stream().map(PDRAddSubscription::getPdrFeatureSeq).count());   //1000000
-
-        System.out.println("Seconds: " + (System.currentTimeMillis() - started));   //30714
+        System.out.println("Seconds: " + (System.currentTimeMillis() - started));   //33487
     }
 
     public static PDRAddSubscription getPdrAddSubscription() {

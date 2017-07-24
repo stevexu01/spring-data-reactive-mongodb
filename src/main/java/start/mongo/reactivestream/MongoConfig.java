@@ -2,6 +2,8 @@ package start.mongo.reactivestream;
 
 import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoClients;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import start.mongo.reactivestream.repositories.PDRAddSubscriptionRepository;
 import start.mongo.reactivestream.repositories.PersonRepository;
@@ -28,5 +30,12 @@ public class MongoConfig extends AbstractReactiveMongoConfiguration {
   @Bean
   public ReactiveMongoTemplate reactiveMongoTemplate() {
     return new ReactiveMongoTemplate(mongoClient(), getDatabaseName());
+  }
+
+  @Bean
+  @Qualifier("mongoTemplate")
+  public MongoTemplate mongoTemplate() {
+    com.mongodb.MongoClient client = new com.mongodb.MongoClient();
+    return new MongoTemplate(client, getDatabaseName());
   }
 }
